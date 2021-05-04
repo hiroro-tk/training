@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import { useState } from "react";
 import Form from "./Form";
 
@@ -95,28 +95,57 @@ function App() {
   };
 
   const [data, setData] = useState({
-    userStatus: { gender: "男性", height: 170, kg: 60 },
-    trainingIds: [],
+    userStatus: {
+      gender: "男性",
+      height: 170,
+      weight: 60,
+      parts: [],
+      target: "power",
+    },
     isSet: false,
   });
   return (
-    <div
-      className="App"
-      style={{
-        backgroundColor: "darkgray",
-      }}
-    >
-      <div style={{ width: "100%" }}>タイトル</div>
-      <div style={{ width: "100%" }}>説明文</div>
-      <Box style={{ backgroundColor: "white", width: "100%" }}>
-        <Form setDataAction={setData} />
-      </Box>
-      {data.isSet && (
+    <div className="App" style={{ backgroundColor: "beige", height: "100vh" }}>
+      {!data.isSet ? (
+        <>
+          <div style={{ width: "100%" }}>title</div>
+          <div style={{ width: "100%" }}>説明文</div>
+          <Box
+            style={{
+              backgroundColor: "white",
+              width: "70%",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            <Form setDataAction={setData} />
+          </Box>
+        </>
+      ) : (
         <div>
           result
           <div>{data.userStatus.gender}</div>
+          <div>BMI</div>
+          <Button
+            type="submit"
+            onClick={() => setData({ ...data, isSet: false })}
+            variant="contained"
+          >
+            診断に戻る
+          </Button>
         </div>
       )}
+      <div
+        style={{
+          bottom: 0,
+          position: "absolute",
+          left: 0,
+          right: 0,
+          margin: "auto",
+        }}
+      >
+        footer
+      </div>
     </div>
   );
 }

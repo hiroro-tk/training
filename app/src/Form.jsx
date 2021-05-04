@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Checkbox,
   FormControlLabel,
   FormLabel,
@@ -16,24 +17,21 @@ const styles = () => ({
   },
 });
 function Form(props) {
-  const { handleSubmit, register, control, getValues } = useForm();
+  const { handleSubmit, control, getValues } = useForm();
   const classes = styles();
   return (
     <form
       onSubmit={handleSubmit((data) => {
-        console.log(data);
         props.setDataAction({
           userStatus: {
+            ...data,
             gender:
               data.gender === "male"
                 ? "男性"
                 : data.gender === "female"
                 ? "女性"
                 : "その他",
-            height: data.height,
-            kg: data.weight,
           },
-          trainingIds: [],
           isSet: true,
         });
       })}
@@ -45,28 +43,26 @@ function Form(props) {
           control={control}
           defaultValue="male"
           render={(props) => (
-            <Box display="inline-block">
-              <RadioGroup
-                value={props.field.value}
-                onChange={props.field.onChange}
-              >
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="男性"
-                />
-                <FormControlLabel
-                  value="female"
-                  control={<Radio />}
-                  label="女性"
-                />
-                <FormControlLabel
-                  value="other"
-                  control={<Radio />}
-                  label="その他"
-                />
-              </RadioGroup>
-            </Box>
+            <RadioGroup
+              value={props.field.value}
+              onChange={props.field.onChange}
+              style={{
+                display: "inline-block",
+                marginLeft: "3vw",
+              }}
+            >
+              <FormControlLabel value="male" control={<Radio />} label="男性" />
+              <FormControlLabel
+                value="female"
+                control={<Radio />}
+                label="女性"
+              />
+              <FormControlLabel
+                value="other"
+                control={<Radio />}
+                label="その他"
+              />
+            </RadioGroup>
           )}
         />
       </Box>
@@ -77,30 +73,38 @@ function Form(props) {
           control={control}
           defaultValue={170}
           render={(props) => (
-            <Select
-              value={props.field.value}
-              onChange={props.field.onChange}
-              MenuProps={{
-                anchorOrigin: {
-                  vertical: "bottom",
-                  horizontal: "left",
-                },
-                transformOrigin: {
-                  vertical: "top",
-                  horizontal: "left",
-                },
-                getContentAnchorEl: null,
-                classes: {
-                  paper: classes.dropdownStyle,
-                },
+            <Box
+              style={{
+                display: "inline",
+                marginLeft: "30px",
+                marginTop: "200px",
               }}
             >
-              {Array.from(new Array(41)).map((v, item) => (
-                <MenuItem value={item + 140} key={item}>
-                  {item + 140}
-                </MenuItem>
-              ))}
-            </Select>
+              <Select
+                value={props.field.value}
+                onChange={props.field.onChange}
+                MenuProps={{
+                  anchorOrigin: {
+                    vertical: "bottom",
+                    horizontal: "left",
+                  },
+                  transformOrigin: {
+                    vertical: "top",
+                    horizontal: "left",
+                  },
+                  getContentAnchorEl: null,
+                  classes: {
+                    paper: classes.dropdownStyle,
+                  },
+                }}
+              >
+                {Array.from(new Array(41)).map((v, item) => (
+                  <MenuItem value={item + 140} key={item}>
+                    {item + 140}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
           )}
         />
       </Box>
@@ -111,30 +115,38 @@ function Form(props) {
           control={control}
           defaultValue={50}
           render={(props) => (
-            <Select
-              value={props.field.value}
-              onChange={props.field.onChange}
-              MenuProps={{
-                anchorOrigin: {
-                  vertical: "bottom",
-                  horizontal: "left",
-                },
-                transformOrigin: {
-                  vertical: "top",
-                  horizontal: "left",
-                },
-                getContentAnchorEl: null,
-                classes: {
-                  paper: classes.dropdownStyle,
-                },
+            <Box
+              style={{
+                display: "inline",
+                marginLeft: "30px",
+                marginTop: "200px",
               }}
             >
-              {Array.from(new Array(101)).map((v, item) => (
-                <MenuItem value={item + 40} key={item}>
-                  {item + 40}
-                </MenuItem>
-              ))}
-            </Select>
+              <Select
+                value={props.field.value}
+                onChange={props.field.onChange}
+                MenuProps={{
+                  anchorOrigin: {
+                    vertical: "bottom",
+                    horizontal: "left",
+                  },
+                  transformOrigin: {
+                    vertical: "top",
+                    horizontal: "left",
+                  },
+                  getContentAnchorEl: null,
+                  classes: {
+                    paper: classes.dropdownStyle,
+                  },
+                }}
+              >
+                {Array.from(new Array(101)).map((v, item) => (
+                  <MenuItem value={item + 40} key={item}>
+                    {item + 40}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
           )}
         />
       </Box>
@@ -157,7 +169,15 @@ function Form(props) {
             }}
             render={(props) => {
               return (
-                <Box display="inline-grid" mt={0}>
+                <Box
+                  display="inline-grid"
+                  mt={0}
+                  style={{
+                    display: "inline",
+                    marginLeft: "30px",
+                    marginTop: "200px",
+                  }}
+                >
                   {[
                     "arm",
                     "shoulder",
@@ -230,8 +250,45 @@ function Form(props) {
             }}
           />
         </Box>
+        <Box my={3}>
+          <FormLabel>⑤目的</FormLabel>
+          <Controller
+            name="target"
+            control={control}
+            defaultValue="muscle"
+            render={(props) => (
+              <RadioGroup
+                value={props.field.value}
+                onChange={props.field.onChange}
+                style={{
+                  display: "inline",
+                  marginLeft: "30px",
+                  marginTop: "200px",
+                }}
+              >
+                <FormControlLabel
+                  value="muscle"
+                  control={<Radio />}
+                  label="筋肥大"
+                />
+                <FormControlLabel
+                  value="power"
+                  control={<Radio />}
+                  label="筋パワー"
+                />
+                <FormControlLabel
+                  value="stamina"
+                  control={<Radio />}
+                  label="筋持久力"
+                />
+              </RadioGroup>
+            )}
+          />
+        </Box>
       </Box>
-      <button>診断する</button>
+      <Button type="submit" color="inherit" variant="contained">
+        診断する
+      </Button>
     </form>
   );
 }
