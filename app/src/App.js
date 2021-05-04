@@ -14,7 +14,7 @@ function App() {
     shoulder: {
       url: "",
       title: "ベンチプレス",
-      body: "",
+      body: "test",
       photoUrl: "",
       relationTrainingId: [{ id: 0, title: "", body: "" }],
     },
