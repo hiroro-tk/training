@@ -1,6 +1,7 @@
 import { Box, Button } from "@material-ui/core";
 import { useState } from "react";
 import Form from "./Form";
+import Result from "./Result";
 
 function App() {
   const trainingList = {
@@ -135,18 +136,7 @@ function App() {
           </Box>
         </>
       ) : (
-        <div>
-          result
-          <div>{data.userStatus.gender}</div>
-          <div>BMI</div>
-          <Button
-            type="submit"
-            onClick={() => setData({ ...data, isSet: false })}
-            variant="contained"
-          >
-            診断に戻る
-          </Button>
-        </div>
+        <Result data={data} setData={setData} />
       )}
       <div
         style={{
